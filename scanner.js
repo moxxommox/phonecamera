@@ -64,7 +64,13 @@ async function stopScanner() {
   scanner = null;
 }
 
-async function startScanner(index = 0) {
+function findRearCameraIndex() {
+  const rearPattern = /(back|rear|environment|world)/i;
+  const rearIndex = cameras.findIndex((camera) => rearPattern.test(camera.label || ''));
+  return rearIndex >= 0 ? rearIndex : 0;
+}
+
+async function startScanner(index = null) {
   await stopScanner();
   setStatus('Starting camera…');
 
@@ -74,11 +80,18 @@ async function startScanner(index = 0) {
     cameras = await Html5Qrcode.getCameras();
     if (!cameras.length) throw new Error('No camera was found.');
 
-    cameraIndex = ((index % cameras.length) + cameras.length) % cameras.length;
-    const cameraId = cameras[cameraIndex].id;
+    let cameraChoice;
+    if (index === null) {
+      // Ask the browser for the rear camera on every fresh scanner launch.
+      cameraIndex = findRearCameraIndex();
+      cameraChoice = { facingMode: 'environment' };
+    } else {
+      cameraIndex = ((index % cameras.length) + cameras.length) % cameras.length;
+      cameraChoice = cameras[cameraIndex].id;
+    }
 
     await scanner.start(
-      cameraId,
+      cameraChoice,
       {
         fps: 12,
         qrbox: (viewWidth, viewHeight) => {
@@ -130,4 +143,4 @@ window.addEventListener('beforeunload', () => {
   if (scanner) scanner.stop().catch(() => {});
 });
 
-window.addEventListener('load', () => startScanner(0));
+window.addEventListener('load', () => startScanner());
