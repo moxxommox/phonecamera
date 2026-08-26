@@ -6,8 +6,9 @@ body { min-height: 100vh; }
 .scanner-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
 h1 { font-size: 20px; margin: 0 0 4px; }
 p { font-size: 13px; margin: 0; color: #667085; }
-.reader { width: 100%; min-height: 260px; overflow: hidden; border-radius: 12px; background: #111; }
-#reader video { object-fit: cover; border-radius: 12px; }
+.reader { width: 100%; height: min(320px, 42vh); min-height: 220px; overflow: hidden; border-radius: 12px; background: #111; }
+#reader__scan_region { height: 100% !important; min-height: 0 !important; }
+#reader video { width: 100% !important; height: 100% !important; object-fit: cover !important; border-radius: 12px; }
 .status-panel { padding: 12px 2px 4px; }
 .status { font-size: 14px; font-weight: 700; }
 .last-scan { margin-top: 5px; font-size: 13px; color: #667085; word-break: break-all; }
@@ -16,7 +17,12 @@ button { appearance: none; border: 0; border-radius: 10px; padding: 12px 14px; f
 button.secondary, .ghost-btn { background: #eef2f6; color: #17202a; }
 .ghost-btn { padding: 9px 12px; }
 @media (max-width: 420px) {
-  .app-shell { padding: 0; display: block; }
-  .scanner-card { min-height: 100vh; border-radius: 0; box-shadow: none; }
-  .reader { min-height: 54vh; }
+  .app-shell { min-height: 0; padding: 10px; display: block; }
+  .scanner-card { width: 100%; min-height: 0; padding: 12px; border-radius: 14px; box-shadow: 0 6px 20px rgba(0,0,0,.10); }
+  .scanner-header { margin-bottom: 8px; }
+  h1 { font-size: 17px; }
+  .reader { height: 280px; min-height: 220px; }
+  .status-panel { padding-top: 9px; }
+  .controls { margin-top: 7px; }
+  button { padding: 10px 12px; }
 }
