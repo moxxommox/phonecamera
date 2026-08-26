@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Barcode Scanner</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js" defer></script>
+  <script src="scanner.js" defer></script>
+</head>
+<body>
+  <main class="app-shell">
+    <section class="scanner-card">
+      <header class="scanner-header">
+        <div>
+          <h1>Barcode Scanner</h1>
+          <p>Point the camera at an EAN or UPC barcode.</p>
+        </div>
+        <button id="closeBtn" class="ghost-btn" type="button">Done</button>
+      </header>
+
+      <div id="reader" class="reader"></div>
+
+      <div class="status-panel">
+        <div id="status" class="status">Starting camera…</div>
+        <div id="lastScan" class="last-scan">No barcode scanned yet.</div>
+      </div>
+
+      <div class="controls">
+        <button id="switchBtn" type="button">Switch camera</button>
+        <button id="restartBtn" type="button" class="secondary">Restart</button>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
